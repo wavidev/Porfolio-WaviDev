@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="source/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="source/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="source/img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="theme-color" content="#ffffff">
+  <title>wavidev</title>
+</head>
+
+<body>
+  <!-- Contador regresivo -->
+  <h1>
+    FALTAN
+  </h1>
+  <section class="conten">
+    <div>
+      <p>
+        <span id="days"></span>
+        <span class="text">DIAS</span>
+      </p>
+      <p>
+        <span id="hours"></span>
+        <span class="text">HORAS</span>
+      </p>
+      <p>
+        <span id="minutes"></span>
+        <span class="text">MINUTOS</span>
+      </p>
+      <p>
+        <span id="seconds"></span>
+        <span class="text">SEGUNDOS</span>
+      </p>
+    </div>
+  </section>
+  <img src="source/img/logowavi.png" alt="">
+  <!-- Fin contador regresivo -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      //===
+      // VARIABLES
+      //===
+      const DATE_TARGET = new Date('08/22/2022 0:01 AM');
+      // DOM for render
+      const SPAN_DAYS = document.querySelector('span#days');
+      const SPAN_HOURS = document.querySelector('span#hours');
+      const SPAN_MINUTES = document.querySelector('span#minutes');
+      const SPAN_SECONDS = document.querySelector('span#seconds');
+      // Milliseconds for the calculations
+      const MILLISECONDS_OF_A_SECOND = 1000;
+      const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
+      const MILLISECONDS_OF_A_HOUR = MILLISECONDS_OF_A_MINUTE * 60;
+      const MILLISECONDS_OF_A_DAY = MILLISECONDS_OF_A_HOUR * 24
+
+      //===
+      // FUNCTIONS
+      //===
+
+      /**
+      * Method that updates the countdown and the sample
+      */
+      function updateCountdown() {
+        // Calcs
+        const NOW = new Date()
+        const DURATION = DATE_TARGET - NOW;
+        const REMAINING_DAYS = Math.floor(DURATION / MILLISECONDS_OF_A_DAY);
+        const REMAINING_HOURS = Math.floor((DURATION % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR);
+        const REMAINING_MINUTES = Math.floor((DURATION % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE);
+        const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
+        // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
+
+        // Render
+        SPAN_DAYS.textContent = REMAINING_DAYS;
+        SPAN_HOURS.textContent = REMAINING_HOURS;
+        SPAN_MINUTES.textContent = REMAINING_MINUTES;
+        SPAN_SECONDS.textContent = REMAINING_SECONDS;
+      }
+
+      //===
+      // INIT
+      //===
+      updateCountdown();
+      // Refresh every second
+      setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
+    });
+  </script>
+</body>
+
+</html>
